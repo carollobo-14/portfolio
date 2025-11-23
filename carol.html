@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carol Lobo | Student Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- VARIABLES & GLOBAL RESET --- */
+        :root {
+            --primary-color: #000000; /* Deep Black */
+            --accent-color: #ff007f; /* Glowing Pink */
+            --text-color: #e0e0e0; /* Light Gray for readability */
+            --light-bg: #111111; /* Slightly lighter black for containers */
+            --glow-shadow: 0 0 4px var(--accent-color);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* --- HEADER AND NAVIGATION --- */
+        .navbar { CAROL LOBO
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--accent-color);
+            box-shadow: 0 2px 10px rgba(255, 0, 127, 0.5);
+        }
+
+        .logo {
+            /* Typing Animation Setup */
+            color: var(--accent-color);
+            text-shadow: var(--glow-shadow);
+            letter-spacing: 2px;
+            font-size: 1.8em;
+            overflow: hidden; 
+            white-space: nowrap; 
+            width: auto; 
+            border-right: none solid var(--accent-color); 
+            animation: 
+                typing 2s steps(10, end) forwards, /* 10 characters for "Carol Lobo" */
+                blink-caret .75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 10ch }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-color); }
+        }
+        
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 5px var(--accent-color); }
+            50% { text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color); }
+            100% { text-shadow: 0 0 5px var(--accent-color); }
+        }
+        
+        /* Apply pulse after typing completes */
+        .logo:not(.animating) {
+            animation: pulseGlow 3s 2s infinite ease-in-out; /* Starts after 2s delay */
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        /* Glowing Pink Effect on Hover and Active */
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary-color); 
+            background-color: var(--accent-color); 
+            box-shadow: var(--glow-shadow);
+        }
+
+        /* --- MAIN CONTENT SECTIONS (PC/Desktop View) --- */
+        main {
+            padding: 30px 5%;
+            max-width: 1200px; /* Max width for large screens */
+            margin: 0 auto;
+        }
+
+        .page-section {
+            min-height: 80vh; 
+            padding: 50px 0;
+            display: none; 
+            opacity: 0; 
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .page-section.active-section {
+            display: block; 
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .page-section > * {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .page-section h2 {
+            color: var(--accent-color);
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            text-shadow: var(--glow-shadow);
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+        }
+
+        /* --- ABOUT ME Specific Styles --- */
+        #about .content-container {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        #about .text-content {
+            flex: 2;
+        }
+
+        #about .image-placeholder {
+            flex: 1;
+            min-height: 250px;
+            background-color: var(--light-bg); 
+            border: 3px solid var(--accent-color);
+            box-shadow: var(--glow-shadow);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* --- SKILLS Specific Styles --- */
+        .skills-list {
+            list-style-type: none;
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .skills-list li {
+            padding: 10px 20px;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            font-weight: bold;
+            border-radius: 25px;
+            box-shadow: var(--glow-shadow);
+            transition: transform 0.2s;
+        }
+        
+        .skills-list li:hover {
+             transform: translateY(-5px);
+             box-shadow: 0 0 20px var(--accent-color);
+        }
+
+        /* --- EDUCATION & CERTIFICATES Styles --- */
+        .info-list-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+        .education-item, .certificate-item {
+            background-color: var(--light-bg);
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(255, 0, 127, 0.3);
+        }
+        
+        .education-item h3, .certificate-item h3 {
+            color: var(--text-color);
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+        
+        .education-item p, .certificate-item p {
+            color: var(--accent-color);
+            font-style: italic;
+        }
+
+
+        /* --- GALLERY Specific Styles --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            height: 500px;width:300px;
+            background-color: #1a1a1a;
+            border: 1px solid var(--accent-color);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            box-shadow: 0 0 5px rgba(255, 0, 127, 0.3);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+/* --- CONTACT ME STYLES --- */
+#contact .social-links-container {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px dashed rgba(255, 0, 127, 0.5);
+    text-align: center;
+}
+
+#contact h3 {
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+/* Form Layout */
+#contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--light-bg);
+    border: 1px solid rgba(255, 0, 127, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.2);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(255, 0, 127, 0.5);
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border-radius: 4px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 5px var(--accent-color); /* Subtle focus glow */
+}
+
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #ff3399;
+    box-shadow: var(--glow-shadow);
+}
+
+/* Social Icons */
+.social-icons a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 1.1em;
+    padding: 10px 15px;
+    margin: 0 10px;
+    border: 1px solid var(--accent-color);
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.social-icons a:hover {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    box-shadow: var(--glow-shadow);
+}
+
+/* Status Message for JS Validation/Submission */
+.status-message {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+}
+.status-message.success {
+    color: #4CAF50; /* Green */
+}
+.status-message.error {
+    color: #f44336; /* Red */
+}
+
+/* Responsive adjustment for forms on mobile */
+@media (max-width: 768px) {
+    #contact-form {
+        padding: 15px;
+    }
+    .social-icons a {
+        padding: 8px 12px;
+        margin: 5px 5px;
+    }
+}
+/* --- CONTACT LAYOUT GRID (MODIFIED) --- */
+.contact-layout {
+    display: grid;
+    /* Two columns: Cards on the left (1fr) and Form on the right (2fr) */
+    grid-template-columns: 1fr 2fr; 
+    gap: 40px;
+    align-items: start;
+}
+
+/* * NEW: Use grid-area or order to position items. 
+ * We will keep the HTML structure as-is and just force the form 
+ * to take up the space where the contact details used to be,
+ * and vice-versa, then collapse them.
+ */
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* Force the cards to appear BELOW the form */
+    grid-area: 2 / 1 / 3 / 3; /* Start row 2, span both columns */
+}
+
+/* Make the form container fill the top row and span both columns */
+.contact-form-container {
+    padding: 0;
+    grid-area: 1 / 1 / 2 / 3; /* Start row 1, span both columns */
+}
+
+/* Remove max-width from form since the grid controls the width */
+#contact-form {
+    max-width: none; 
+    margin: 0;
+}
+
+/* --- MOBILE RESPONSIVENESS ADJUSTMENT --- */
+@media (max-width: 768px) {
+    .contact-layout {
+        /* On mobile, we still want a single column layout */
+        grid-template-columns: 1fr;
+    }
+    .contact-details {
+        /* Reset grid area for mobile stacking */
+        grid-area: auto; 
+    }
+    .contact-form-container {
+        /* Reset grid area for mobile stacking */
+        grid-area: auto;
+    }
+}
+
+/* (Keep the .contact-card, .contact-icon, h3, p styles as they were) */
+
+        /* --- RESPONSIVE MOBILE VIEW --- */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px 3%;
+            }
+            .logo {
+                font-size: 1.5em;
+                margin-bottom: 10px;
+            }
+            nav ul {
+                width: 100%;
+                justify-content: space-around;
+                flex-wrap: wrap;
+            }
+            nav ul li a {
+                padding: 8px 10px;
+                font-size: 0.9em;
+                margin: 5px 2px;
+            }
+
+            main {
+                padding: 20px 3%;
+            }
+            
+            #about .content-container {
+                flex-direction: column;
+            }
+            #about .image-placeholder {
+                width: 100%;
+                margin-top: 20px;
+            }
+            .info-list-container {
+                grid-template-columns: 1fr; /* Stack on mobile */
+            }
+            .skills-list {
+                justify-content: center;
+            }
+            .page-section h2 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <h1 class="logo" id="typed-name">Carol Lobo</h1>
+        <nav>
+            <ul>
+                <li><a href="#about" class="nav-link active">About Me</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
+                <li><a href="#certificates" class="nav-link">Certificates</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+<li><a href="#contact" class="nav-link">Contact</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about" class="page-section active-section">
+            <h2>✨ About Me</h2>
+            <div class="content-container">
+                <div class="text-content">
+                    <p>Hello! I'm Carol Lobo, a passionate student currently pursuing my studies at Fr. CRCE College. My journey through various institutions has built a strong foundation in both academics and technical skills.</p>
+                    <p>I am driven by curiosity and a desire to solve real-world problems using programming and innovative design. This portfolio is a showcase of my academic path, technical proficiencies, and creative work.</p>
+                </div>
+                <div class="image-placeholder">
+                    
+                    <img src="C:\Users\HP\Pictures\safe\Screenshots\Screenshot (155).png">                </div>
+            </div>
+        </section>
+
+        <section id="education" class="page-section">
+            <h2>🎓 Education</h2>
+            <div class="info-list-container">
+                <div class="education-item">
+                    <h3>Fr. CRCE College</h3>
+                    <p>Current Undergraduate Study</p>
+                    <p>Focusing on Computer Science and Engineering principles.</p>
+                </div>
+                <div class="education-item">
+                    <h3>AV College (HSC)</h3>
+                    <p>Higher Secondary Certificate (HSC)</p>
+                    <p>Strong academic background in Science</p>
+                </div>
+                <div class="education-item">
+                    <h3>Holy Cross Convent School (SSC)</h3>
+                    <p>Secondary School Certificate (SSC)</p>
+                    <p>Foundation building school education.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="certificates" class="page-section">
+            <h2>📜 Certificates</h2>
+            <p>A list of my key professional and academic certifications.</p>
+            <div class="info-list-container">
+                <div class="certificate-item">
+                    <h3>Matlab Basic Course Completion</h3>
+                    <p>Issued by:MathWorks</p>
+                </div>
+                <div class="certificate-item">
+                    <h3>Ignite program by Wadhwani</h3>
+                    <p>Gained entrepreneurial skills.</p>
+                </div>
+                <div class="certificate-item">
+                    <h3>Web Development Fundamentals</h3>
+                    <p>Focus on HTML, CSS, and JavaScript.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="page-section">
+            <h2>💻 Skills</h2>
+            <p>My core competencies in programming and technology:</p>
+            <ul class="skills-list">
+                <li>C</li>
+                <li>C++</li>
+              <li>Canva</li>
+                <li>HTML & CSS</li>
+                <li>JavaScript</li>
+                <li>Git/GitHub</li>
+            </ul>
+        </section>
+
+        <section id="gallery" class="page-section">
+            <h2>🖼️ Gallery</h2>
+            <p>A visual showcase of my projects, designs, and AI-generated concepts.</p>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    
+                    <img src="C:\Users\HP\AppData\Local\Microsoft\Windows\INetCache\IE\XSOB9SXU\IMG-20251123-WA0006[1].jpg">                </div>
+                <div class="gallery-item">
+                    
+<img src="C:\Users\HP\AppData\Local\Microsoft\Windows\INetCache\IE\3JYMHY6Y\IMG-20251123-WA0009[1].jpg">
+                </div>
+                <div class="gallery-item">
+                    
+
+[Image of a flowchart for a programming project]
+
+                    <img src="C:\Users\HP\AppData\Local\Microsoft\Windows\INetCache\IE\9SMDZUDK\IMG-20251123-WA0007[1].jpg">
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\HP\AppData\Local\Microsoft\Windows\INetCache\IE\3JYMHY6Y\IMG-20251123-WA0011[1].jpg">                </div>
+            </div>
+        </section>
+<section id="contact" class="page-section">
+    <h2>📧 Get In Touch</h2>
+    
+    <div class="contact-layout">
+        
+        <div class="contact-details">
+            
+            <div class="contact-card">
+                <span class="contact-icon">📧</span>
+                <h3>Email</h3>
+                <p>carol.lobo.2007@gmail.com</p>
+            </div>
+            
+            <div class="contact-card">
+                <span class="contact-icon">📱</span>
+                <h3>Phone</h3>
+                <p>+91 9869375271</p> 
+            </div>
+            
+            <div class="contact-card">
+                <span class="contact-icon">📍</span>
+                <h3>Location</h3>
+                <p>Mira Road , Maharashtra</p> 
+            </div>
+        </div>
+        
+        <div class="contact-form-container">
+            <form id="contact-form" action="https://formspree.io/f/xjkzdwar" method="POST">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required placeholder="Your Full Name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="_replyto" required placeholder="your.email@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="Tell me about your project or opportunity..."></textarea>
+                </div>
+                
+                <button type="submit" id="submit-btn">Send Message</button>
+                <p id="form-status" class="status-message"></p>
+            </form>
+        </div>
+        
+    </div>
+
+    <div class="social-links-container">
+        <h3>Follow me:</h3>
+        <div class="social-icons">
+            <a href="YOUR_LINKEDIN_URL" target="_blank">LinkedIn</a>
+            <a href="https://github.com/carollobo-14" target="_blank">GitHub</a>
+                   </div>
+    </div>
+
+</section>
+    </main>
+
+    <script>
+       
+    document.addEventListener('DOMContentLoaded', () => {
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pageSections = document.querySelectorAll('.page-section');
+        
+        // --- IMPORTANT: DEFINE FORM VARIABLES INSIDE DOMContentLoaded ---
+        const form = document.getElementById('contact-form');
+        const statusMessage = document.getElementById('form-status');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // Function to handle section display and link highlighting
+        const switchSection = (targetId) => {
+            // 1. Reset all sections and links
+            pageSections.forEach(section => {
+                // Reset properties before hiding for smooth re-entry
+                section.style.opacity = 0;
+                section.style.transform = 'translateY(20px)';
+                section.classList.remove('active-section');
+
+                // Also reset inner elements
+                section.querySelectorAll('.page-section > *').forEach(el => {
+                    el.style.opacity = 0;
+                    el.style.transform = 'translateY(20px)';
+                    el.style.transitionDelay = '0s'; // Reset delay
+                });
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // 2. Show the target section and apply stagger animation
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                // Use a short timeout to let the browser reset the previous state before animating
+                setTimeout(() => {
+                    targetSection.classList.add('active-section');
+                    targetSection.style.opacity = 1;
+                    targetSection.style.transform = 'translateY(0)';
+                    
+                    // Stagger the reveal of inner elements
+                    // NEW/UPDATED selector
+const elementsToAnimate = targetSection.querySelectorAll('h2, p, .content-container, .info-list-container, .skills-list, .gallery-grid, .education-item, .certificate-item, .contact-layout, .contact-form-container, .contact-details, .contact-card, .social-links-container');                    elementsToAnimate.forEach((el, index) => {
+                        el.style.transitionDelay = `${index * 0.1}s`;
+                        el.style.opacity = 1;
+                        el.style.transform = 'translateY(0)';
+                    });
+                }, 10);
+            }
+
+            // 3. Add active class to the clicked link
+            const targetLink = document.querySelector(`.nav-link[href="#${targetId}"]`);
+            if (targetLink) {
+                targetLink.classList.add('active');
+            }
+            
+            // Scroll to the top of the section for better UX
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+
+        // Attach event listeners to all navigation links
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                switchSection(targetId);
+            });
+        });
+
+        // Initial setup for stagger elements
+        // NEW/UPDATED selector
+const allInnerElements = document.querySelectorAll('.page-section > *, .contact-layout, .contact-form-container, .contact-details, .contact-card');        allInnerElements.forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        });
+
+        // Trigger initial reveal for the 'about' section
+        switchSection('about');
+
+        // --- CONTACT FORM SUBMISSION LOGIC (via Formspree) ---
+        // This is now safe because form, statusMessage, and submitBtn are defined above,
+        // and we are inside the DOMContentLoaded block.
+        if (form) { 
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                
+                if (!form.checkValidity()) {
+                    statusMessage.textContent = 'Please fill out all required fields correctly.';
+                    statusMessage.className = 'status-message error';
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+                statusMessage.textContent = 'Submitting form...';
+                statusMessage.className = 'status-message';
+
+                const data = new FormData(form);
+                
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: data,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        statusMessage.textContent = 'Message Sent Successfully! Thank you.';
+                        statusMessage.className = 'status-message success';
+                        form.reset();
+                    } else {
+                        statusMessage.textContent = 'Oops! There was an error sending your message. Check your Formspree setup.';
+                        statusMessage.className = 'status-message error';
+                    }
+                } catch (error) {
+                    statusMessage.textContent = 'Network error. Please try again later.';
+                    statusMessage.className = 'status-message error';
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send Message';
+                }
+            });
+        }
+    });
+   </script>
+</body>
+</html>
